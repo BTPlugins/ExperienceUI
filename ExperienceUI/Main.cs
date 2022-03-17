@@ -28,7 +28,7 @@ namespace ExperienceUI
             Logger.Log("#############################################");
             U.Events.OnPlayerConnected += OnPlayerConnected;
             U.Events.OnPlayerDisconnected += OnPlayerDisconnected;
-            UnturnedPlayerEvents.OnPlayerUpdateExperience += OnPlayerUpdateExperience;
+            UnturnedPlayerEvents.OnPlayerUpdateExperience += OnPlayerUpdateExperience; 
         }
 
         protected override void Unload()
