@@ -5,7 +5,7 @@ Display Experience on a UI!
 Discord Support: https://discord.gg/YsaXwBSTSm
 
 # Get the Plugin Here
-https://github.com/blazethrower320/ExperienceUI/releases/tag/release
+https://github.com/BTPlugins/ExperienceUI/releases/tag/release
 <br/>https://www.youtube.com/watch?v=20bDSKcd4_g
 
 # Workshop Mod
