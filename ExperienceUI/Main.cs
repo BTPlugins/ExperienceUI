@@ -13,10 +13,13 @@ using System.Threading.Tasks;
 
 namespace ExperienceUI
 {
-    public class Main : RocketPlugin
+    public class Main : RocketPlugin<ExperienceUIConfiguration>
     {
+        public static Main Instance;
+        public static ExperienceUIConfiguration Config => Instance.Configuration.Instance;
         protected override void Load()
         {
+            Instance = this;
             Logger.Log("#############################################");
             Logger.Log("###             ExperienceUI              ###");
             Logger.Log("###   Plugin Created By blazethrower320   ###");
@@ -42,12 +45,12 @@ namespace ExperienceUI
         }
         private void OnPlayerConnected(UnturnedPlayer player)
         {
-            EffectManager.sendUIEffect(26301, 263, player.Player.channel.owner.transportConnection, true);
+            EffectManager.sendUIEffect(Config.UIKey, 263, player.Player.channel.owner.transportConnection, true);
             EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", player.Experience.ToString());
         }
         private void OnPlayerDisconnected(UnturnedPlayer player)
         {
-            EffectManager.askEffectClearByID(26301, player.Player.channel.owner.transportConnection);
+            EffectManager.askEffectClearByID(Config.UIKey, player.Player.channel.owner.transportConnection);
         }
 
     }
