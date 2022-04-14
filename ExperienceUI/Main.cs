@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using fr34kyn01535.Uconomy;
 
 namespace ExperienceUI
 {
@@ -28,7 +29,14 @@ namespace ExperienceUI
             Logger.Log("#############################################");
             U.Events.OnPlayerConnected += OnPlayerConnected;
             U.Events.OnPlayerDisconnected += OnPlayerDisconnected;
-            UnturnedPlayerEvents.OnPlayerUpdateExperience += OnPlayerUpdateExperience; 
+            UnturnedPlayerEvents.OnPlayerUpdateExperience += OnPlayerUpdateExperience;
+            Uconomy.Instance.OnBalanceUpdate += BalanceUpdated;
+            if (Main.Instance.Configuration.Instance.useEXP == true && Main.Instance.Configuration.Instance.useUconomy == true || Main.Instance.Configuration.Instance.useEXP == false && Main.Instance.Configuration.Instance.useUconomy == false)
+            {
+                Logger.Log("ERROR: useEXP && useUconomy set to the Same Value!");
+                Logger.Log("ERROR: useEXP && useUconomy set to the Same Value!");
+                Logger.Log("ERROR: useEXP && useUconomy set to the Same Value!");
+            }
         }
 
         protected override void Unload()
@@ -37,16 +45,35 @@ namespace ExperienceUI
             U.Events.OnPlayerConnected -= OnPlayerConnected;
             U.Events.OnPlayerDisconnected -= OnPlayerDisconnected;
             UnturnedPlayerEvents.OnPlayerUpdateExperience -= OnPlayerUpdateExperience;
+            Uconomy.Instance.OnBalanceUpdate -= BalanceUpdated;
         }
 
         private void OnPlayerUpdateExperience(UnturnedPlayer player, uint experience)
         {
-            EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", experience.ToString());
+            if(Main.Instance.Configuration.Instance.useEXP == true && Main.Instance.Configuration.Instance.useUconomy == false)
+            {
+                EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", experience.ToString());
+            }
+        }
+        private void BalanceUpdated(UnturnedPlayer player, decimal amt)
+        {
+            if (Main.Instance.Configuration.Instance.useEXP == false && Main.Instance.Configuration.Instance.useUconomy == true)
+            {
+                var newBalanced = Uconomy.Instance.Database.GetBalance(player.CSteamID.ToString());
+                EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", newBalanced.ToString());
+            }
         }
         private void OnPlayerConnected(UnturnedPlayer player)
         {
             EffectManager.sendUIEffect(Config.UIKey, 263, player.Player.channel.owner.transportConnection, true);
-            EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", player.Experience.ToString());
+            if (Main.Instance.Configuration.Instance.useEXP == true && Main.Instance.Configuration.Instance.useUconomy == false)
+            {
+                EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", player.Experience.ToString());
+            }
+            else
+            {
+                EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", Uconomy.Instance.Database.GetBalance(player.CSteamID.ToString()).ToString());
+            }
         }
         private void OnPlayerDisconnected(UnturnedPlayer player)
         {
