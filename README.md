@@ -1,6 +1,6 @@
 # ExperienceUI
 
-Display Experience on a UI!
+Display Experience and or Uconomy Balance on a UI!
 
 Discord Support: https://discord.gg/YsaXwBSTSm
 
