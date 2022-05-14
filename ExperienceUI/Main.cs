@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using fr34kyn01535.Uconomy;
+using Rocket.Core;
 
 namespace ExperienceUI
 {
@@ -29,13 +30,18 @@ namespace ExperienceUI
             U.Events.OnPlayerConnected += OnPlayerConnected;
             U.Events.OnPlayerDisconnected += OnPlayerDisconnected;
             UnturnedPlayerEvents.OnPlayerUpdateExperience += OnPlayerUpdateExperience;
-            Uconomy.Instance.OnBalanceUpdate += BalanceUpdated;
+            R.Plugins.OnPluginsLoaded += OnPluginsLoaded;
             if (Main.Instance.Configuration.Instance.useEXP == true && Main.Instance.Configuration.Instance.useUconomy == true || Main.Instance.Configuration.Instance.useEXP == false && Main.Instance.Configuration.Instance.useUconomy == false)
             {
                 Logger.Log("ERROR: useEXP && useUconomy set to the Same Value!");
                 Logger.Log("ERROR: useEXP && useUconomy set to the Same Value!");
                 Logger.Log("ERROR: useEXP && useUconomy set to the Same Value!");
             }
+        }
+
+        private void OnPluginsLoaded()
+        {
+            Uconomy.Instance.OnBalanceUpdate += BalanceUpdated;
         }
 
         protected override void Unload()
