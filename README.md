@@ -2,6 +2,11 @@
 
 Display Experience and or Uconomy Balance on a UI!
 
+
+# UI Selections
+- Moving UI: 26301
+- Stationary UI: 26302
+
 Discord Support: https://discord.gg/YsaXwBSTSm
 
 # Get the Plugin Here
