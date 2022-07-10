@@ -41,7 +41,10 @@ namespace ExperienceUI
 
         private void OnPluginsLoaded()
         {
-            Uconomy.Instance.OnBalanceUpdate += BalanceUpdated;
+            if (Main.Instance.Configuration.Instance.useUconomy)
+            {
+                Uconomy.Instance.OnBalanceUpdate += BalanceUpdated;
+            }
         }
 
         protected override void Unload()
@@ -70,7 +73,7 @@ namespace ExperienceUI
         }
         private void OnPlayerConnected(UnturnedPlayer player)
         {
-            EffectManager.sendUIEffect(Main.Instance.Configuration.Instance.UIKey, 263, player.Player.channel.owner.transportConnection, true);
+            EffectManager.sendUIEffect(Main.Instance.Configuration.Instance.UIKey, 263, true);
             if (Main.Instance.Configuration.Instance.useEXP == true && Main.Instance.Configuration.Instance.useUconomy == false)
             {
                 EffectManager.sendUIEffectText(263, player.Player.channel.owner.transportConnection, true, "ExperienceUI_Balance_Var", player.Experience.ToString());
