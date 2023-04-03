@@ -7,6 +7,10 @@ Display Experience and or Uconomy Balance on a UI!
 - Moving UI: 26301
 - Stationary UI: 26302
 
+# Want to use your own UI?
+- Just set your childName for your variable to ``ExperienceUI_Balance_Var`` in the UI!
+
+
 Discord Support: https://discord.gg/YsaXwBSTSm
 
 # Get the Plugin Here
